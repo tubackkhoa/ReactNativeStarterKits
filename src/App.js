@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { BackHandler, NativeModules, Easing } from 'react-native';
 import { Drawer, StyleProvider, View } from 'native-base';
-import { connect } from 'react-redux';
 
 import Navigator from './components/Navigator';
 import Header from './components/Header';
@@ -42,6 +42,7 @@ const UIManager = NativeModules.UIManager;
 @connect(
   state => ({
     router: getRouter(state),
+    isLogged: authSelectors.isLogged(state),
     drawerState: getDrawerState(state),
     token: authSelectors.getToken(state)
   }),
@@ -168,7 +169,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { router, drawerState, closeDrawer } = this.props;
+    const { router, drawerState, closeDrawer, isLogged } = this.props;
     const route = getPage(router.current) || routes.notFound;
     return (
       <StyleProvider style={getTheme(material)}>
@@ -182,7 +183,7 @@ export default class App extends Component {
           useInteractionManager
           content={<View />}
           onClose={closeDrawer}
-          panOpenMask={0.25}
+          panOpenMask={isLogged ? 0.25 : 0}
         >
           {/* {<Header
             type={route.headerType}
