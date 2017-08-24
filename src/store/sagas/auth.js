@@ -3,11 +3,9 @@ import { takeLatest, all } from 'redux-saga/effects';
 import auth from '~/store/api/auth';
 import { createRequestSaga } from './common';
 
-import { setToast, noop, forwardTo } from '~/store/actions/common';
+import { setToast, forwardTo } from '~/store/actions/common';
 import { setAuthState, saveLoggedUser, removeLoggedUser } from '~/store/actions/auth';
-
 import { getProfile, replaceProfile } from '~/store/actions/account';
-
 import { closeDrawer } from '~/store/actions/common';
 
 const requestLogin = createRequestSaga({
@@ -17,8 +15,8 @@ const requestLogin = createRequestSaga({
   success: [
     data => saveLoggedUser(data),
     //({access_token}) => getProfile(access_token),
-    () => setAuthState(true)
-    //() => forwardTo('home'),
+    () => setAuthState(true),
+    () => forwardTo('home')
     //() => setToast('Logged successfully!!!'),
   ],
   failure: [() => setToast("Couldn't login", 'error')]

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Container,
   Content,
-  View,
+  Text,
   Input,
   InputGroup,
   Header,
@@ -32,9 +32,15 @@ class Register extends React.PureComponent {
               <Label>Password</Label>
               <Input placeholder="password" secureTextEntry />
             </InputGroup>
-            <Button>Register</Button>
-            <Button>Forgot password</Button>
-            <Button>Login</Button>
+            <Button>
+              <Text>Register</Text>
+            </Button>
+            <Button>
+              <Text>Forgot password</Text>
+            </Button>
+            <Button>
+              <Text>Login</Text>
+            </Button>
           </Form>
         </Content>
       </Container>

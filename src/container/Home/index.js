@@ -2,15 +2,13 @@ import React from 'react';
 import {
   Container,
   Content,
-  View,
-  Input,
-  InputGroup,
   Header,
   Body,
   Title,
-  Button,
-  Form,
-  Label
+  Text,
+  Footer,
+  FooterTab,
+  Button
 } from 'native-base';
 
 class Home extends React.PureComponent {
@@ -23,20 +21,15 @@ class Home extends React.PureComponent {
           </Body>
         </Header>
         <Content>
-          <Form>
-            <InputGroup>
-              <Label>Username</Label>
-              <Input placeholder="Enter your username" />
-            </InputGroup>
-            <InputGroup>
-              <Label>Password</Label>
-              <Input placeholder="password" secureTextEntry />
-            </InputGroup>
-            <Button>Home</Button>
-            <Button>Forgot password</Button>
-            <Button>Register</Button>
-          </Form>
+          <Text>Home</Text>
         </Content>
+        <Footer>
+          <FooterTab>
+            <Button full>
+              <Text>Logout</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     );
   }

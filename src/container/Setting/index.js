@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  Container,
-  Content,
-  View,
-  Input,
-  InputGroup,
-  Header,
-  Body,
-  Title,
-  Button,
-  Form,
-  Label
-} from 'native-base';
+import { Container, Content, Text, Header, Body, Title } from 'native-base';
 
 class Setting extends React.PureComponent {
   render() {
@@ -23,19 +11,7 @@ class Setting extends React.PureComponent {
           </Body>
         </Header>
         <Content>
-          <Form>
-            <InputGroup>
-              <Label>Username</Label>
-              <Input placeholder="Enter your username" />
-            </InputGroup>
-            <InputGroup>
-              <Label>Password</Label>
-              <Input placeholder="password" secureTextEntry />
-            </InputGroup>
-            <Button>Setting</Button>
-            <Button>Forgot password</Button>
-            <Button>Register</Button>
-          </Form>
+          <Text>Setting</Text>
         </Content>
       </Container>
     );

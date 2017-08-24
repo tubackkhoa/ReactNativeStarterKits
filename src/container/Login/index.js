@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Container,
   Content,
-  View,
   Input,
   InputGroup,
   Header,
@@ -13,6 +12,7 @@ import {
   Label,
   Text
 } from 'native-base';
+import { requestLogin } from '~/store/actions/auth';
 
 class Login extends React.PureComponent {
   static defaultName = 'Login';
@@ -35,7 +35,7 @@ class Login extends React.PureComponent {
               <Label>Password</Label>
               <Input placeholder="password" secureTextEntry />
             </InputGroup>
-            <Button>
+            <Button onPress={() => this.props.dispatch(requestLogin())}>
               <Text>Login</Text>
             </Button>
             <Button>
