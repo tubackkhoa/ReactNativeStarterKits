@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Container,
   Content,
@@ -10,10 +11,21 @@ import {
   Button,
   Form,
   Label,
-  Text
+  Text,
+  Left,
+  Right
 } from 'native-base';
-import { requestLogin } from '~/store/actions/auth';
+import * as commonActions from '~/store/actions/common';
+import * as commonSelectors from '~/store/selectors/common';
 
+@connect(
+  state => ({
+    loginRequest: commonSelectors.getRequest(state)
+  }),
+  {
+    ...commonActions
+  }
+)
 class Login extends React.PureComponent {
   static defaultName = 'Login';
 
@@ -35,7 +47,7 @@ class Login extends React.PureComponent {
               <Label>Password</Label>
               <Input placeholder="password" secureTextEntry />
             </InputGroup>
-            <Button onPress={() => this.props.dispatch(requestLogin())}>
+            <Button onPress={() => this.props.resetTo('home')}>
               <Text>Login</Text>
             </Button>
             <Button>

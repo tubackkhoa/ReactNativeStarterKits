@@ -80,7 +80,7 @@ export default class App extends Component {
       if (route) {
         // show header and footer, and clear search string
         this.navigator.navigate(route);
-        this.header.show(route.headerType, route.title);
+        // this.header.show(route.headerType, route.title);
         this.footer.show(route.footerType, route.routeName);
       } else {
         // no need to push to route
@@ -182,6 +182,7 @@ export default class App extends Component {
           useInteractionManager
           content={<View />}
           onClose={closeDrawer}
+          panOpenMask={0.25}
         >
           {/* {<Header
             type={route.headerType}

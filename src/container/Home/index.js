@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Container,
   Content,
@@ -8,14 +9,26 @@ import {
   Text,
   Footer,
   FooterTab,
-  Button
+  Button,
+  Left,
+  Right,
+  Icon
 } from 'native-base';
+import * as commonActions from '~/store/actions/common';
 
+@connect(() => ({}), {
+  ...commonActions
+})
 class Home extends React.PureComponent {
   render() {
     return (
       <Container>
         <Header>
+          <Left>
+            <Button transparent onPress={() => this.props.openDrawer()}>
+              <Icon name="menu" />
+            </Button>
+          </Left>
           <Body>
             <Title>Home</Title>
           </Body>
@@ -25,7 +38,7 @@ class Home extends React.PureComponent {
         </Content>
         <Footer>
           <FooterTab>
-            <Button full>
+            <Button full onPress={() => this.props.resetTo('login')}>
               <Text>Logout</Text>
             </Button>
           </FooterTab>

@@ -27,5 +27,5 @@ export const configStore = callback => {
       blacklist: ['form', 'ui', 'requests']
     },
     () => callback(store)
-  ).purge();
+  );
 };
