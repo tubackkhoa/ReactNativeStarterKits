@@ -1,5 +1,5 @@
-import { takeLatest, all } from 'redux-saga/effects';
-
+import { takeLatest, all, put } from 'redux-saga/effects';
+import { APP_LOGIN, APP_LOGOUT } from '~/constants/types';
 import auth from '~/store/api/auth';
 import { createRequestSaga } from './common';
 
@@ -11,29 +11,26 @@ import { closeDrawer } from '~/store/actions/common';
 const requestLogin = createRequestSaga({
   request: auth.login,
   key: 'login',
-  cancel: 'app/logout',
+  cancel: APP_LOGOUT,
   success: [
     data => saveLoggedUser(data),
     //({access_token}) => getProfile(access_token),
     () => setAuthState(true),
-    () => forwardTo('home')
-    //() => setToast('Logged successfully!!!'),
+    () => forwardTo('home'),
+    () => setToast('Logged successfully!!!', 'info', 250, 'center')
   ],
   failure: [() => setToast("Couldn't login", 'error')]
 });
 
-const requestLogout = createRequestSaga({
-  request: auth.login,
-  key: 'logout',
-  success: [
-    () => removeLoggedUser(),
-    () => setAuthState(false),
-    () => closeDrawer(),
-    () => forwardTo('login'),
-    () => setToast('Logout successfully!!!')
-  ],
-  failure: [() => setToast("Couldn't logout", 'error')]
-});
+const requestLogout = function* () {
+  yield all([
+    yield put(removeLoggedUser()),
+    yield put(setAuthState(false)),
+    yield put(closeDrawer()),
+    yield put(forwardTo('login')),
+    yield put(setToast('Logout successfully!!!'))
+  ]);
+};
 
 // root saga reducer
 export default [
@@ -43,6 +40,6 @@ export default [
   // other watcher may be background workers
   function* fetchWatcher() {
     // use takeLatest instead of take every, so double click in short time will not trigger more fork
-    yield all([takeLatest('app/login', requestLogin), takeLatest('app/logout', requestLogout)]);
+    yield all([takeLatest(APP_LOGIN, requestLogin), takeLatest(APP_LOGOUT, requestLogout)]);
   }
 ];

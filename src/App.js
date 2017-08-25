@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BackHandler, NativeModules, Easing } from 'react-native';
+import { BackHandler, UIManager, Easing } from 'react-native';
 import { Drawer, StyleProvider, View } from 'native-base';
 
 import Navigator from './components/Navigator';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AfterInteractions from './components/AfterInteractions';
-// import Toasts from './components/Toasts';
+import Toasts from './components/Toasts';
 // import SideBar from './components/SideBar';
 
 import Preload from './container/Preload';
@@ -36,8 +36,6 @@ const getPage = route => {
 //   easing: Easing.bezier(0.075, 0.82, 0.165, 1),
 //   useNativeDriver: true
 // };
-
-const UIManager = NativeModules.UIManager;
 
 @connect(
   state => ({
@@ -208,7 +206,7 @@ export default class App extends Component {
             ref={ref => (this.footer = ref)}
           />
 
-          {/* {<Toasts />} */}
+          <Toasts />
         </Drawer>
       </StyleProvider>
     );

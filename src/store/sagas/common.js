@@ -26,18 +26,7 @@ export const rejectErrors = res => {
   return Promise.reject({ message: res.statusText, status });
 };
 
-export const respondJson = res =>
-  // const contentType = res.headers.get("content-type") || ''
-  // return (res.status !== 204 && contentType.indexOf("application/json") !== -1) ? res.json() : {}
-  res.text().then(text => {
-    try {
-      return JSON.parse(text);
-      // Do your JSON handling here
-    } catch (err) {
-      // It is text, do you text handling here
-      return {};
-    }
-  });
+export const respondJson = res => res.data;
 
 // create saga here
 // convenient way: [] instead of polymorph, such as item is not array then [item]
@@ -91,36 +80,37 @@ export const createRequestSaga = ({
       }
 
       // start invoke
-      const invokeRequest = () => {
-        let chainRequest = request.apply(request, args);
+      const invokeRequest = async () => {
+        const chainRequest = request.apply(request, args);
         // blob support progress
-        if (blob) {
-          // if(uploadProgress){
-          //   console.log(uploadProgress, intervalProgress)
-          //   chainRequest = chainRequest.uploadProgress({ interval : intervalProgress }, function* (uploaded, total){
-          //       for(let actionCreator of uploadProgress){
-          //         yield put(actionCreator({uploaded, total}, action))
-          //       }
-          //   })
-          // }
+        // if (blob) {
+        // if(uploadProgress){
+        //   console.log(uploadProgress, intervalProgress)
+        //   chainRequest = chainRequest.uploadProgress({ interval : intervalProgress }, function* (uploaded, total){
+        //       for(let actionCreator of uploadProgress){
+        //         yield put(actionCreator({uploaded, total}, action))
+        //       }
+        //   })
+        // }
 
-          // if(downloadProgress) {
-          //   chainRequest = chainRequest.progress({ interval : intervalProgress }, function* (downloaded, total){
-          //       for(let actionCreator of downloadProgress){
-          //         yield put(actionCreator({downloaded, total}, action))
-          //       }
-          //   })
-          // }
-          chainRequest = chainRequest.then(res => res.json());
-        } else {
-          // chain the request
-          chainRequest = chainRequest
-            //.then(rejectErrors)
-            // default return empty json when no content
-            .then(respondJson);
-        }
+        // if(downloadProgress) {
+        //   chainRequest = chainRequest.progress({ interval : intervalProgress }, function* (downloaded, total){
+        //       for(let actionCreator of downloadProgress){
+        //         yield put(actionCreator({downloaded, total}, action))
+        //       }
+        //   })
+        // }
+        //   chainRequest = chainRequest.then(res => res.json());
+        // } else {
+        // chain the request
+        // chainRequest = chainRequest
+        //.then(rejectErrors)
+        // default return empty json when no content
+        // .then(respondJson);
+        // }
 
-        return chainRequest;
+        const response = await chainRequest;
+        return response.data;
       };
 
       // we do not wait forever for whatever request !!!
@@ -161,27 +151,26 @@ export const createRequestSaga = ({
         ret = data;
       }
     } catch (reason) {
-      console.log('createRequestSaga error', reason);
       // unauthorized
-      if (reason.status === 401) {
-        // try refresh token
-        const token = action.args[0];
-        // catch exception is safer than just read response status
-        if (token && token.refreshToken) {
-          // tell user to wait, no need to catch for more errors this step!!!
-          yield put(setToast('Refreshing token... You should reload page for sure!'));
-          // try refresh token, then reload page ?
-          const { token: newToken } = yield call(api.auth.refreshAccessToken, token.refreshToken);
-          // it can return more such as user info, expired date ?
-          // call action creator to update
-          yield put(saveRefreshToken(newToken));
-        } else {
-          // call logout user because we do not have refresh token
-          yield put(removeLoggedUser());
-          yield put(setAuthState(false));
-          yield put(forwardTo('login'));
-        }
-      }
+      // if (reason.status === 401) {
+      //   // try refresh token
+      //   const token = action.args[0];
+      //   // catch exception is safer than just read response status
+      //   if (token && token.refreshToken) {
+      //     // tell user to wait, no need to catch for more errors this step!!!
+      //     yield put(setToast('Refreshing token... You should reload page for sure!'));
+      //     // try refresh token, then reload page ?
+      //     const { token: newToken } = yield call(auth.refreshAccessToken, token.refreshToken);
+      //     // it can return more such as user info, expired date ?
+      //     // call action creator to update
+      //     yield put(saveRefreshToken(newToken));
+      //   } else {
+      // call logout user because we do not have refresh token
+      yield put(removeLoggedUser());
+      yield put(setAuthState(false));
+      yield put(forwardTo('login'));
+      //   }
+      // }
       // anyway, we should treat this as error to log
       if (failure) {
         for (const actionCreator of failure) {

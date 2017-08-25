@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
 import {
   Container,
   Content,
@@ -12,11 +11,10 @@ import {
   Button,
   Form,
   Label,
-  Text,
-  Left,
-  Right
+  Text
 } from 'native-base';
 import * as commonActions from '~/store/actions/common';
+import * as authActions from '~/store/actions/auth';
 import * as commonSelectors from '~/store/selectors/common';
 
 @connect(
@@ -24,7 +22,8 @@ import * as commonSelectors from '~/store/selectors/common';
     loginRequest: commonSelectors.getRequest(state)
   }),
   {
-    ...commonActions
+    ...commonActions,
+    ...authActions
   }
 )
 class Login extends React.PureComponent {
@@ -46,14 +45,11 @@ class Login extends React.PureComponent {
               <Label>Password</Label>
               <Input placeholder="password" secureTextEntry />
             </InputGroup>
-            <Button onPress={() => this.props.resetTo('home')}>
+            <Button
+              onPress={() => this.props.login()}
+              style={{ marginTop: 10, alignSelf: 'center' }}
+            >
               <Text>Login</Text>
-            </Button>
-            <Button>
-              <Text>Forgot password</Text>
-            </Button>
-            <Button>
-              <Text>Register</Text>
             </Button>
           </Form>
         </Content>

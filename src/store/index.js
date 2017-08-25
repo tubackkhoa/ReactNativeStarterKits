@@ -24,7 +24,7 @@ export const configStore = callback => {
       storage: AsyncStorage,
       keyPrefix: 'ReactNativeStarterKits',
       debounce: 500,
-      blacklist: ['form', 'ui', 'requests']
+      blacklist: ['form', 'ui', 'requests', 'toast']
     },
     () => callback(store)
   );

@@ -10,7 +10,8 @@ import {
 const init = {
   loggedIn: false,
   token: null,
-  fullName: null,
+  name: null,
+  email: null,
   socialType: 'facebook'
 };
 
@@ -22,8 +23,11 @@ export default (state = init, { type, payload }) => {
     }
     case APP_SET_AUTH_STATE:
       return { ...state, loggedIn: payload || false };
-    case APP_SAVE_LOGGED_USER:
-      return { ...state, loggedIn: payload.loggedIn, fullName: payload.fullName };
+    case APP_SAVE_LOGGED_USER: {
+      console.log('APP_SAVE_LOGGED_USER', payload);
+      const { name, email } = payload;
+      return { ...state, loggedIn: payload.loggedIn, name, email };
+    }
     case APP_SAVE_REFRESH_TOKEN:
       return { ...state, token: { ...state.token, ...payload } };
     case APP_REMOVE_LOGGED_USER:
