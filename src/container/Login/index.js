@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { View, Text } from 'react-native';
 import {
   Container,
   Content,
@@ -27,8 +28,6 @@ import * as commonSelectors from '~/store/selectors/common';
   }
 )
 class Login extends React.PureComponent {
-  static defaultName = 'Login';
-
   render() {
     return (
       <Container>

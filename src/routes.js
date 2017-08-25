@@ -16,12 +16,14 @@ export default {
     title: 'Setting',
     Page: Setting,
     headerType: 'back',
-    footerType: 'none'
+    footerType: 'none',
+    cache: true
   },
   'user/profile': {
     title: 'User Profile',
     Page: UserProfile,
-    headerType: 'none'
+    headerType: 'none',
+    cache: true
   },
   login: {
     title: 'Login',
