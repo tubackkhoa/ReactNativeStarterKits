@@ -6,7 +6,6 @@
 
 
 ## Dependencies
-- react-native-maps
 - react-native-vector-icons
 - native-base
 - agiletech-navigation
@@ -18,6 +17,13 @@
 ```
 ~/assets                project resource files
 ~/components            All related component
+  /Afternteractions       You should not care about this
+  /Header
+  /Footer
+  /Navigator
+  /SideBar
+    options.js            All SideBar items
+  /Toast
 ~/elements              Dump component without state
 ~/constants             App constants
 ~/container             App screens
@@ -28,8 +34,9 @@
   /saga                   Sagas
   /selectors              State selectors
 ~/theme                 NativeBase theme
+~/App.js                Navigation Component
+~/index.js              Root Component
 ```
-
 
 ## API
 - Sử dụng `apisauce` để quản lý rest `endpoint`, cấu hình tại `~/constants/configs.js`
