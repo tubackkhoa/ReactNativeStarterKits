@@ -22,7 +22,7 @@ export const configStore = callback => {
     store,
     {
       storage: AsyncStorage,
-      keyPrefix: 'ReactNativeStarterKits',
+      keyPrefix: 'newproject',
       debounce: 500,
       blacklist: ['form', 'ui', 'requests', 'toast']
     },
