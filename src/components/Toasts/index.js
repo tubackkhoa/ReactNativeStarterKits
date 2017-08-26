@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { View, Modal, TouchableOpacity } from 'react-native';
 import { Text, Button } from 'native-base';
 import { connect } from 'react-redux';
 // for convenient, we can just import one

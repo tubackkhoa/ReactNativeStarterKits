@@ -7,7 +7,7 @@ const init = {
   data: [],
   unRead: 0
 };
-export const notification = (state = init, { type, payload }) => {
+export default (state = init, { type, payload }) => {
   switch (type) {
     // we can store current page? for paging...
     case NOTIFICATION_REPLACE: {

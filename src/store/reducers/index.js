@@ -7,6 +7,7 @@ import { router, requests, toast, modal, drawer } from './common';
 export default combineReducers({
   form,
   router,
+  notification,
   ui: combineReducers({
     toast,
     modal,

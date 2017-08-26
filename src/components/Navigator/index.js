@@ -91,7 +91,7 @@ export default class Navigator extends Component {
         this._sceneRefs.delete(oldRoute.routeName);
         this.scenes.splice(this.blurIndex, 1);
         // delete so we can re-render it later
-        // this._renderedSceneMap.delete(oldRoute.routeName)
+        // this._renderedSceneMap.delete(oldRoute.routeName);
         this.blurIndex = -1;
         this.presentedIndex = destIndex > this.presentedIndex ? destIndex - 1 : destIndex;
         // remove then update, so no blur needed

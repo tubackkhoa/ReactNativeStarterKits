@@ -5,11 +5,6 @@ class UserProfile extends React.PureComponent {
   render() {
     return (
       <Container>
-        <Header>
-          <Body>
-            <Title>UserProfile</Title>
-          </Body>
-        </Header>
         <Content>
           <Text>Profile</Text>
         </Content>

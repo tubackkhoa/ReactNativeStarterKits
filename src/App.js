@@ -8,7 +8,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import AfterInteractions from './components/AfterInteractions';
 import Toasts from './components/Toasts';
-// import SideBar from './components/SideBar';
+import SideBar from './components/SideBar';
 
 import Preload from './container/Preload';
 
@@ -36,6 +36,8 @@ const getPage = route => {
 //   easing: Easing.bezier(0.075, 0.82, 0.165, 1),
 //   useNativeDriver: true
 // };
+UIManager.setLayoutAnimationEnabledExperimental &&
+  UIManager.setLayoutAnimationEnabledExperimental(true);
 
 @connect(
   state => ({
@@ -54,15 +56,10 @@ export default class App extends Component {
     this.pageInstances = new Map();
   }
 
-  componentWillMount() {
-    UIManager.setLayoutAnimationEnabledExperimental &&
-      UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
-
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => {
       const { router, goBack } = this.props;
-      if (router.route === 'home') {
+      if (router.stack.length === 0) {
         return false;
       }
       // go back
@@ -79,7 +76,7 @@ export default class App extends Component {
       if (route) {
         // show header and footer, and clear search string
         this.navigator.navigate(route);
-        // this.header.show(route.headerType, route.title);
+        this.header.show(route.headerType, route.title);
         this.footer.show(route.footerType, route.routeName);
       } else {
         // no need to push to route
@@ -179,16 +176,16 @@ export default class App extends Component {
           tweenDuration={300}
           tweenEasing="easeOutCubic"
           useInteractionManager
-          content={<View />}
+          content={<SideBar />}
           onClose={closeDrawer}
           panOpenMask={isLogged ? 0.25 : 0}
         >
-          {/* {<Header
+          <Header
             type={route.headerType}
             title={route.title}
             onLeftClick={this._onLeftClick}
             onItemRef={ref => (this.header = ref)}
-          />} */}
+          />
 
           <Navigator
             ref={ref => (this.navigator = ref)}

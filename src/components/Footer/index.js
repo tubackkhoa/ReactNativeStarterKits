@@ -25,7 +25,7 @@ export default class extends PureComponent {
   renderFooterTabs(route) {
     return (
       <Button style={styles.button} onPress={this.tabClick.bind(this, 'qrCode')}>
-        <Icon name="photo-camera" style={styles.photoIcon} />
+        <Icon name="camera" style={styles.photoIcon} />
       </Button>
     );
   }

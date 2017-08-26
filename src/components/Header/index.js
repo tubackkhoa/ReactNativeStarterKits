@@ -63,7 +63,7 @@ export default class extends Component {
   renderHeaderBack(title) {
     const left = (
       <Button transparent onPress={this._leftClick}>
-        <Icon name="keyboard-arrow-left" />
+        <Icon name="ios-arrow-back" />
       </Button>
     );
     const center = (
@@ -107,7 +107,7 @@ export default class extends Component {
 
   renderHeaderHome() {
     const numberNotification =
-      this.props.unReadNotification != 0
+      this.props.unReadNotification !== 0
         ? (<View style={styles.badgeContainer}>
             <Text small white>
               {this.props.unReadNotification}
@@ -122,14 +122,14 @@ export default class extends Component {
     );
     const center = (
       <Title white style={{ alignSelf: 'center' }}>
-        Home
+        {this.props.title}
       </Title>
     );
     const right = (
       <View style={styles.rowIconContainer}>
         <Button transparent onPress={() => this._onPressNotification()}>
           {numberNotification}
-          <Icon style={styles.icon} name="notification" />
+          <Icon style={styles.icon} name="ios-notifications" />
         </Button>
         <Button transparent onPress={() => this._onPressSearch()}>
           <Icon style={styles.icon} name="search" />
@@ -174,7 +174,7 @@ export default class extends Component {
       case 'home':
         return this.renderHeaderHome();
       case 'searchBack':
-        return this.renderHeaderSearch('keyboard-arrow-left');
+        return this.renderHeaderSearch('ios-arrow-back');
       default:
         return this.renderHeaderSearch();
     }

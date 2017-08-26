@@ -9,7 +9,18 @@ export default {
     title: 'Home',
     Page: Home,
     headerType: 'home',
-    footerType: 'none',
+    footer: [
+      {
+        title: 'Home',
+        Page: Home,
+        icon: 'none'
+      },
+      {
+        title: 'Gallery',
+        Page: Home,
+        icon: 'none'
+      }
+    ],
     cache: true
   },
   setting: {
