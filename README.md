@@ -101,22 +101,22 @@ npm run promoteAndroid
 
 - Xem bảng thống kê về các bản cập nhật Staging
 ```
-// Staging
+# Staging
 npm run statisticStagingiOS
 npm run statisticStagingAndroid
 
-// Production
+# Production
 npm run statisticProiOS
 npm run statisticProAndroid
 ```
 
 - Rollback về bản cập nhật trước đó: Khi lỡ release|promote 1 bản cập nhật tệ hại, chúng ta có thể sửa lỗi bằng cách rollback về bản cập nhật ngay trước đó.
 ```
-// Staging
+# Staging
 npm run rollbackStagingiOS
 npm run rollbackStagingAndroid
 
-// Production
+#Production
 npm run rollbackProiOS
 npm run rollbackProAndroid
 ```
