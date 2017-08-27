@@ -4,6 +4,23 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "keyiOS": "code-push deployment ls reactnativestarterkits-ios -k",
+    "keyAndroid": "code-push deployment ls reactnativestarterkits-android -k",
+    "releaseiOS": "code-push release-react reactnativestarterkits-ios ios --description \"Optional release description iOS here\"",
+    "releaseAndroid": "code-push release-react reactnativestarterkits-android android --description \"Optional release description Android here\"",
+    "releaseForceiOS": "code-push release-react reactnativestarterkits-ios ios -m --description \"Mandatory release description iOS here\"",
+    "releaseForceAndroid": "code-push release-react reactnativestarterkits-android android -m --description \"Mandatory release description Android here\"",
+    "promoteiOS": "code-push promote reactnativestarterkits-ios Staging Production",
+    "promoteAndroid": "code-push promote reactnativestarterkits-android Staging Production",
+    "rollbackStagingiOS": "code-push rollback reactnativestarterkits-ios Staging",
+    "rollbackStagingAndroid": "code-push rollback reactnativestarterkits-android Staging",
+    "rollbackProiOS": "code-push rollback reactnativestarterkits-ios Production",
+    "rollbackProAndroid": "code-push rollback reactnativestarterkits-android Production",
+    "statisticStagingiOS": "code-push deployment history reactnativestarterkits-ios Staging",
+    "statisticStagingAndroid": "code-push deployment history reactnativestarterkits-android Staging",
+    "statisticProiOS": "code-push deployment history reactnativestarterkits-ios Production",
+    "statisticProAndroid": "code-push deployment history reactnativestarterkits-android Production",
+    "reset": "-- --reset-cache",
     "test": "jest"
   },
   "dependencies": {
@@ -33,9 +50,7 @@
     "react-test-renderer": "16.0.0-alpha.12"
   },
   "rnpm": {
-    "assets": [
-      "./src/assets/fonts"
-    ]
+    "assets": ["./src/assets/fonts"]
   },
   "jest": {
     "preset": "react-native"

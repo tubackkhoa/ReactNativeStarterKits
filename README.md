@@ -1,9 +1,7 @@
 # ReactNativeStarterKits
 
 ## Note
-- cocoapods installed on iOS => open `project_name.xcworkspace` instead of `project_name.iosproject`
-- NEVER RUN `react-native link`, use `react-native link optional_package`
-
+Đọc kỹ hướng dẫn sử dụng trước khi dùng
 
 ## Dependencies
 - react-native-vector-icons
@@ -51,11 +49,78 @@ You simple use `import abc from '~/components/Header';` instead of `import abc f
 ## Setup project
 
 ```
-git clone git_link new_name
-cd new_name && yarn
-react-native-rename new_name
-react-native run-ios|run-android => then close current packager
-npm start -- --reset-cache
+git clone https://gitlab.com/anhtuank7c/ReactNativeStarterKits.git example
+cd example && yarn
+react-native-rename example -b vn.agiletech.example
+npm start reset
+Mở thêm 1 cửa sổ lệnh khác và run
+react-native run-ios|run-android
 ```
 
 - Remember to change `persist keyPrefix` in `~/store/index.js` line `25`
+
+## npm shortcut
+
+#### CodePush
+Đã tích hợp vài câu lệnh cho code-push vào `package.json`
+Cách dùng:
+- Các bạn phải tạo ra 2 project code push với lệnh sau
+```
+code-push app add example-ios ios
+code-push app add example-android android
+```
+- sau đó mở `package.json` ra và sửa lại hết tên project
+```
+reactnativestarterkits-ios              example-ios
+reactnativestarterkits-android          example-android
+```
+
+- Xem code-push app key
+```
+npm run keyiOS
+npm run keyAndroid
+```
+
+- release Optional Staging với chế độ optional => Có nghĩa là user có nút ignore để bỏ qua bản cập nhật này. (Nhớ thay đổi description trong package.json mô tả về bản cập nhật nhé. VD: Nâng cấp tính năng chat realtime)
+```
+npm run releaseiOS
+npm run releaseAndroid
+```
+
+- release Mandatory Staging với chế độ optional => Có nghĩa là user bị bắt buộc phải cài bản cập nhật thì mới dùng app tiếp được. (Nhớ thay đổi description trong package.json mô tả về bản cập nhật nhé. VD: Nâng cấp tính năng chat realtime)
+```
+npm run releaseForceiOS
+npm run releaseForceAndroid
+```
+
+- Promote release Staging to Production: Khi release app bao giờ cũng trải qua trạng thái Staging (muốn test thì cấu hình multiple release stage). Sau khi test ở trạng thái Staging ok, chúng ta sẽ đẩy bản update này lên Production để sản phẩm cuối cùng được cập nhật hàng loạt. (Chỉ cấu hình production key cho app đưa lên store nhé)
+```
+npm run promoteiOS
+npm run promoteAndroid
+```
+
+- Xem bảng thống kê về các bản cập nhật Staging
+```
+// Staging
+npm run statisticStagingiOS
+npm run statisticStagingAndroid
+
+// Production
+npm run statisticProiOS
+npm run statisticProAndroid
+```
+
+- Rollback về bản cập nhật trước đó: Khi lỡ release|promote 1 bản cập nhật tệ hại, chúng ta có thể sửa lỗi bằng cách rollback về bản cập nhật ngay trước đó.
+```
+// Staging
+npm run rollbackStagingiOS
+npm run rollbackStagingAndroid
+
+// Production
+npm run rollbackProiOS
+npm run rollbackProAndroid
+```
+
+#### reset cache
+
+Thay vì chạy lệnh: `npm start -- --reset-cache` thì đã được rút gọn lại thành `npm start reset`
