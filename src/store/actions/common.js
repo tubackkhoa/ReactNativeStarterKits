@@ -11,7 +11,8 @@ import {
   DRAWER_OPEN,
   DRAWER_CLOSE,
   MODAL_OPEN,
-  MODAL_CLOSE
+  MODAL_CLOSE,
+  INVOKE_CALLBACK
 } from '~/constants/types';
 
 /**
@@ -85,3 +86,9 @@ export const closeDrawer = () => ({ type: DRAWER_CLOSE });
  */
 export const openModal = () => ({ type: MODAL_OPEN });
 export const closeModal = () => ({ type: MODAL_CLOSE });
+
+// INVOKE
+export const invokeCallback = (callback, ...args) => ({
+  type: INVOKE_CALLBACK,
+  payload: callback && callback.call(null, ...args)
+});

@@ -59,3 +59,8 @@ export const MODAL_CLOSE = 'app/closeModal';
  */
 export const DRAWER_OPEN = 'app/openDrawer';
 export const DRAWER_CLOSE = 'app/closeDrawer';
+
+/**
+ * INVOKE
+ */
+export const INVOKE_CALLBACK = 'app/invokeCallBack';
