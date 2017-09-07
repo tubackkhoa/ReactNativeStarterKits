@@ -6,8 +6,8 @@ export default {
       icon: 'home'
     },
     {
-      name: 'Delegation',
-      route: 'delegation',
+      name: 'Gallery',
+      route: 'gallery',
       icon: 'delegation'
     },
     {

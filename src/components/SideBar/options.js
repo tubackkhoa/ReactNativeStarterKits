@@ -1,34 +1,29 @@
 export default {
   listItems: [
-    /*{
-      name: 'Rewards',
-      route: 'interaction',
-      icon: 'gift',
-    },*/
     {
       name: 'My Profile',
       route: 'userProfileUpdate',
-      icon: 'user-circle-o'
+      icon: 'ios-contact'
     },
     {
-      name: 'My Celebrities',
-      route: 'fanProfile',
-      icon: 'group'
+      name: 'Gallery',
+      route: 'gallery',
+      icon: 'ios-images'
     },
     {
       name: 'QRcode Scanner',
       route: 'qrCode',
-      icon: 'camera'
+      icon: 'ios-camera'
     },
     {
       name: 'Settings',
       route: 'setting',
-      icon: 'cog'
+      icon: 'ios-construct'
     },
     {
       name: 'History',
       route: 'fanHistory',
-      icon: 'history'
+      icon: 'ios-paper'
     }
   ]
 };

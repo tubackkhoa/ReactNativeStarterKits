@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { Image, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 import { Content, Text, ListItem, Left, View } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as authActions from '~/store/actions/auth';
 import * as commonActions from '~/store/actions/common';
@@ -10,21 +11,38 @@ import * as commonActions from '~/store/actions/common';
 
 // import * as accountSelectors from '~/store/selectors/account';
 import * as authSelectors from '~/store/selectors/auth';
+import images from '~/assets/images';
+import Icon from '~/elements/Icon';
 
 import options from './options';
 import styles from './styles';
-import images from '~/assets/images';
-//import Icon from '~/ui/elements/Icon'
 
 // import { API_BASE } from '~/store/constants/api';
-
+const imagePickerOptions = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
 @connect(
   state => ({
     socialType: authSelectors.getSocialType(state)
   }),
   { ...authActions, ...commonActions }
 )
-export default class extends Component {
+export default class extends PureComponent {
+  static propTypes = {
+    route: PropTypes.object.isRequired
+  };
+
+  onFanProfilePress() {
+    const { forwardTo, closeDrawer } = this.props;
+    closeDrawer();
+    forwardTo('fanProfile');
+  }
+
   _handleSuccessLogout() {
     const { forwardTo, setToast, removeAllCampaign } = this.props;
     // OneSignal.deleteTag("user_id")
@@ -47,21 +65,46 @@ export default class extends Component {
     forwardTo(route);
   }
 
-  onFanProfilePress() {
-    const { forwardTo, closeDrawer } = this.props;
-    closeDrawer();
-    forwardTo('fanProfile');
+  changeAvatar() {
+    ImagePicker.showImagePicker(imagePickerOptions, response => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // const source = { uri: `data:image/jpeg;base64,${response.data}` };
+        Alert.alert('Change Avatar successfull', `Pick avatar successfull uri: ${source.uri}`, [
+          {
+            title: 'Ok'
+          }
+        ]);
+
+        // this.setState({
+        //   avatarSource: source
+        // });
+      }
+    });
   }
 
   render() {
+    const { route } = this.props;
     return (
       <Content bounces={false} style={styles.container}>
         <ListItem onPress={this.onFanProfilePress.bind(this)} style={styles.drawerCover}>
-          <Image
-            source={images.avatar}
-            placeholder={<Icon name="image" style={styles.drawerImage} />}
-            style={styles.drawerImage}
-          />
+          <TouchableOpacity activeOpacity={0.8} onPress={() => this.changeAvatar()}>
+            <Image
+              source={images.avatar}
+              placeholder={<Icon name="image" style={styles.drawerImage} />}
+              style={styles.drawerImage}
+            />
+          </TouchableOpacity>
 
           <Text large style={styles.text}>
             Name in sidebar
@@ -75,19 +118,17 @@ export default class extends Component {
             </View>*/}
         </ListItem>
         <View style={styles.listItemContainer}>
-          {options.listItems.map((item, index) =>
-            <ListItem noBorder key={index} button onPress={e => this.navigateTo(item.route)}>
+          {options.listItems.map((item, index) => (
+            <ListItem noBorder key={index} button onPress={() => this.navigateTo(item.route)}>
               <Left>
                 <Icon name={item.icon} style={styles.icon} />
-                <Text style={styles.iconText}>
-                  {item.name}
-                </Text>
+                <Text style={styles.iconText}>{item.name}</Text>
               </Left>
             </ListItem>
-          )}
+          ))}
           <ListItem noBorder button onPress={() => this.props.logout()} style={{ marginTop: 20 }}>
             <Left>
-              <Icon name={'sign-out'} style={styles.icon} />
+              <Icon name={'ios-log-out'} style={styles.icon} />
               <Text style={styles.iconTextLast}>Log out</Text>
             </Left>
           </ListItem>

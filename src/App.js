@@ -164,7 +164,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { router, drawerState, closeDrawer, isLogged } = this.props;
+    const { router, drawerState, closeDrawer, openDrawer, isLogged } = this.props;
     const route = getPage(router.current) || routes.notFound;
     return (
       <StyleProvider style={getTheme(material)}>
@@ -176,8 +176,9 @@ export default class App extends Component {
           tweenDuration={300}
           tweenEasing="easeOutCubic"
           useInteractionManager
-          content={<SideBar />}
+          content={<SideBar route={route} />}
           onClose={closeDrawer}
+          onOpen={openDrawer}
           panOpenMask={isLogged ? 0.25 : 0}
         >
           <Header

@@ -66,11 +66,7 @@ export default class extends Component {
         <Icon name="ios-arrow-back" />
       </Button>
     );
-    const center = (
-      <Title full>
-        {title}
-      </Title>
-    );
+    const center = <Title full>{title}</Title>;
     return this.renderHeader(left, center);
   }
 
@@ -107,13 +103,13 @@ export default class extends Component {
 
   renderHeaderHome() {
     const numberNotification =
-      this.props.unReadNotification !== 0
-        ? (<View style={styles.badgeContainer}>
-            <Text small white>
-              {this.props.unReadNotification}
-            </Text>
-          </View>)
-        : null;
+      this.props.unReadNotification !== 0 ? (
+        <View style={styles.badgeContainer}>
+          <Text small white>
+            {this.props.unReadNotification}
+          </Text>
+        </View>
+      ) : null;
 
     const left = (
       <Button transparent onPress={this._leftClick}>
@@ -122,7 +118,7 @@ export default class extends Component {
     );
     const center = (
       <Title white style={{ alignSelf: 'center' }}>
-        {this.props.title}
+        Home
       </Title>
     );
     const right = (
@@ -149,15 +145,9 @@ export default class extends Component {
 
     return (
       <Header noShadow {...props} style={styles.container}>
-        <Left style={{ flex: 0.5 }}>
-          {left}
-        </Left>
-        <Body style={{ flex: 1 }}>
-          {center}
-        </Body>
-        <Right style={rightStyle}>
-          {right}
-        </Right>
+        <Left style={{ flex: 0.5 }}>{left}</Left>
+        <Body style={{ flex: 1 }}>{center}</Body>
+        <Right style={rightStyle}>{right}</Right>
       </Header>
     );
   }

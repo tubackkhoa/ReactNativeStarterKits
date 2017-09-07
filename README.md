@@ -9,6 +9,8 @@
 - agiletech-navigation
 - redux, react-redux, redux-logger, redux-saga, redux-form, redux-persist
 - lodash, color, apisauce
+- react-native-fast-image
+- react-native-image-picker
 
 ## Folder structure
 

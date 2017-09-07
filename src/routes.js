@@ -1,6 +1,7 @@
 import Login from './container/Login';
 import Register from './container/Register';
 import Home from './container/Home';
+import Gallery from './container/Gallery';
 import Setting from './container/Setting';
 import UserProfile from './container/UserProfile';
 
@@ -9,18 +10,13 @@ export default {
     title: 'Home',
     Page: Home,
     headerType: 'home',
-    footer: [
-      {
-        title: 'Home',
-        Page: Home,
-        icon: 'none'
-      },
-      {
-        title: 'Gallery',
-        Page: Home,
-        icon: 'none'
-      }
-    ],
+    cache: true
+  },
+  gallery: {
+    title: 'Gallery',
+    Page: Gallery,
+    headerType: 'none',
+    footerType: 'none',
     cache: true
   },
   setting: {

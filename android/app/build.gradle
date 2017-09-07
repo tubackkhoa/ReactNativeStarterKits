@@ -118,10 +118,12 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file(MYAPP_RELEASE_STORE_FILE)
-            storePassword pass // Change this
-            keyAlias MYAPP_RELEASE_KEY_ALIAS
-            keyPassword pass // Change this
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword pass // Change this
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword pass // Change this
+            }
         }
     }
     splits {
@@ -155,6 +157,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fast-image')
+    compile project(':react-native-image-picker')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
